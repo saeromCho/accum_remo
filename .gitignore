@@ -1,0 +1,63 @@
+/build
+/linux
+/macos
+/web
+/windows
+/.dart_tool
+/pubspec.lock
+/.idea
+/Flutter
+
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+ios/Podfile.lock
+/.credentials
+.pub-cache/
+.pub/
+/build/
+
+# IOS/XCode related
+**/ios/Flutter/tmp.xcconfig
+**/ios/.envfile
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/Flutter/Generated.xcconfig
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/prod.properties
+
+# Project related
+.env.*
+.vscode/launch.json
+
+# Test Code
+lib/test/
+.gitignore
