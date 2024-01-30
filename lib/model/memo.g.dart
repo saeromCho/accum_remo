@@ -12,7 +12,7 @@ Memo _$MemoFromJson(Map<String, dynamic> json) {
     disallowNullValues: const ['user_id', 'created_at', 'updated_at'],
   );
   return Memo(
-    id: json['id'] as int,
+    id: json['id'] as int?,
     userId: json['user_id'] as int,
     title: json['title'] as String?,
     content: json['content'] as String?,

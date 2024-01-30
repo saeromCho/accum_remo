@@ -14,7 +14,7 @@ class Memo {
   // updated_at DATETIME NOT NULL,
   // FOREIGN KEY(user_id) REFERENCES User(id))
 
-  final int id;
+  final int? id;
   @JsonKey(disallowNullValue: true, name: 'user_id')
   final int userId;
   final String? title;
@@ -28,9 +28,9 @@ class Memo {
   Memo({
     required this.id,
     required this.userId,
-    this.title,
-    this.content,
-    this.password,
+    required this.title,
+    required this.content,
+    required this.password,
     required this.createdAt,
     required this.updatedAt,
   });

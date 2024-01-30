@@ -11,7 +11,9 @@ class User {
   // created_at DATETIME NOT NULL,
   // updated_at DATETIME NOT NULL
 
-  final int id;
+  final int? id;
+  @JsonKey(disallowNullValue: true, name: 'user_id')
+  final String userId;
   final String password;
   @JsonKey(disallowNullValue: true, name: 'nick_name')
   final String nickName;
@@ -24,9 +26,10 @@ class User {
 
   User({
     required this.id,
+    required this.userId,
     required this.password,
     required this.nickName,
-    this.shortenIntroducing,
+    required this.shortenIntroducing,
     required this.createdAt,
     required this.updatedAt,
   });

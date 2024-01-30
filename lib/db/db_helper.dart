@@ -24,7 +24,7 @@ class DBHelper {
 
   FutureOr<void> _createDb(Database db, int version) {
     db.execute('''
-      CREATE TABLE User(id INTEGER PRIMARY KEY, password TEXT NOT NULL, nick_name TEXT NOT NULL UNIQUE, shorten_introducing TEXT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL)
+      CREATE TABLE User(id INTEGER PRIMARY KEY, user_id TEXT NOT NULL, password TEXT NOT NULL, nick_name TEXT NOT NULL UNIQUE, shorten_introducing TEXT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL)
     ''');
 
     db.execute('''
@@ -43,13 +43,38 @@ class DBHelper {
 
   FutureOr<void> _upgradeDb(Database db, int oldVersion, int newVersion) {}
 
-  Future<void> insertUser(User user) async {
+  Future<bool> insertUser(User user) async {
     final db = await database;
 
-    await db.insert(
-      "User",
-      user.toJson(),
-    );
+    try {
+      await db.insert(
+        "User",
+        user.toJson(),
+      );
+      return true;
+    } catch (e) {
+      print('insertUser 에러::::${e.toString()}');
+    }
+    return false;
+  }
+
+  Future<Map<String, dynamic>?>? fetchUser(
+      {required String userId, required String password}) async {
+    final db = await database;
+    try {
+      List<Map<String, Object?>> results = await db.query("User",
+          where: "user_id = ? and password = ?", whereArgs: [userId, password]);
+      // 결과가 있다면 첫 번째 사용자 반환, 없다면 null 반환
+      print('results:::${results.length}');
+      if (results.isNotEmpty) {
+        return results.first;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('fetch User 에러:::${e.toString()}');
+    }
+    return null;
   }
 
   Future<void> insertMemo(Memo memo) async {
