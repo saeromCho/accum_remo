@@ -24,7 +24,7 @@ class DBHelper {
 
   FutureOr<void> _createDb(Database db, int version) {
     db.execute('''
-      CREATE TABLE User(id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE, shorten_introducing TEXT, password TEXT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL)
+      CREATE TABLE User(id INTEGER PRIMARY KEY, password TEXT NOT NULL, nick_name TEXT NOT NULL UNIQUE, shorten_introducing TEXT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL)
     ''');
 
     db.execute('''
@@ -36,7 +36,7 @@ class DBHelper {
       password TEXT,
       is_private INTEGER NOT NULL,
       created_at DATETIME NOT NULL,
-      updated_at DATETIME NOT NULL,,
+      updated_at DATETIME NOT NULL,
       FOREIGN KEY(user_id) REFERENCES User(id))
   ''');
   }

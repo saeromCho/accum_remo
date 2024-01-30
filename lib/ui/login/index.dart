@@ -16,13 +16,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     // TODO: implement initState
-
+    DBHelper().database;
     super.initState();
   }
 
-  void _createMemo() {
-    DBHelper().database;
-  }
+  // void _createMemo() {
+  //   DBHelper().database;
+  // }
 
   @override
   Widget build(BuildContext context) {
