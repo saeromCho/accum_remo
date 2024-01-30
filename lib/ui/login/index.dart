@@ -15,8 +15,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isUserExisted = true;
   @override
   void initState() {
-    DBHelper().database;
     super.initState();
+    DBHelper().database;
   }
 
   @override
@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       setState(() {
                         isUserExisted = true;
                       });
-                      // context.goNamed('memos');
+                      context.goNamed(RemoPath.memos.name);
                     } else {
                       /// 없으면 없다는 메세지 밑에 간단하게 보여줘.
                       setState(() {

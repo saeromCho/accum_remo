@@ -17,9 +17,12 @@ class Memo {
   final int? id;
   @JsonKey(disallowNullValue: true, name: 'user_id')
   final int userId;
+
   final String? title;
   final String? content;
   final String? password;
+  @JsonKey(disallowNullValue: true, name: 'is_private')
+  final int isPrivate;
   @JsonKey(disallowNullValue: true, name: 'created_at')
   final String createdAt;
   @JsonKey(disallowNullValue: true, name: 'updated_at')
@@ -31,6 +34,7 @@ class Memo {
     required this.title,
     required this.content,
     required this.password,
+    this.isPrivate = 0,
     required this.createdAt,
     required this.updatedAt,
   });

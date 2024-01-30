@@ -9,7 +9,12 @@ part of 'memo.dart';
 Memo _$MemoFromJson(Map<String, dynamic> json) {
   $checkKeys(
     json,
-    disallowNullValues: const ['user_id', 'created_at', 'updated_at'],
+    disallowNullValues: const [
+      'user_id',
+      'is_private',
+      'created_at',
+      'updated_at'
+    ],
   );
   return Memo(
     id: json['id'] as int?,
@@ -17,6 +22,7 @@ Memo _$MemoFromJson(Map<String, dynamic> json) {
     title: json['title'] as String?,
     content: json['content'] as String?,
     password: json['password'] as String?,
+    isPrivate: json['is_private'] as int? ?? 0,
     createdAt: json['created_at'] as String,
     updatedAt: json['updated_at'] as String,
   );
@@ -28,6 +34,7 @@ Map<String, dynamic> _$MemoToJson(Memo instance) => <String, dynamic>{
       'title': instance.title,
       'content': instance.content,
       'password': instance.password,
+      'is_private': instance.isPrivate,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
     };

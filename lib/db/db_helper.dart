@@ -77,10 +77,19 @@ class DBHelper {
     return null;
   }
 
-  Future<void> insertMemo(Memo memo) async {
+  Future<bool> insertMemo(Memo memo) async {
     final db = await database;
 
-    await db.insert("Memo", memo.toJson());
+    try {
+      await db.insert(
+        "Memo",
+        memo.toJson(),
+      );
+      return true;
+    } catch (e) {
+      print('insertMemo 에러::::${e.toString()}');
+    }
+    return false;
   }
 
   Future<List<Memo>> fetchMemos() async {
