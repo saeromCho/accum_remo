@@ -19,7 +19,7 @@ Memo _$MemoFromJson(Map<String, dynamic> json) {
   return Memo(
     id: json['id'] as int?,
     userId: json['user_id'] as int,
-    title: json['title'] as String?,
+    title: json['title'] as String,
     content: json['content'] as String?,
     password: json['password'] as String?,
     isPrivate: json['is_private'] as int? ?? 0,

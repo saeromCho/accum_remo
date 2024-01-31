@@ -17,8 +17,7 @@ class Memo {
   final int? id;
   @JsonKey(disallowNullValue: true, name: 'user_id')
   final int userId;
-
-  final String? title;
+  final String title;
   final String? content;
   final String? password;
   @JsonKey(disallowNullValue: true, name: 'is_private')
@@ -42,4 +41,26 @@ class Memo {
   factory Memo.fromJson(Map<String, dynamic> json) => _$MemoFromJson(json);
 
   Map<String, dynamic> toJson() => _$MemoToJson(this);
+
+  Memo copyWith({
+    int? id,
+    int? userId,
+    String? title,
+    String? content,
+    String? password,
+    String? createdAt,
+    String? updatedAt,
+    int? isPrivate,
+  }) {
+    return Memo(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      title: title ?? this.title,
+      content: content ?? this.content,
+      password: password ?? this.password,
+      isPrivate: isPrivate ?? this.isPrivate,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 }

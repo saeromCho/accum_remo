@@ -22,6 +22,7 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inverseSurface,
+        iconTheme: IconThemeData(color: Colors.white),
         title: const Text(
           'Register in Remo.',
           style: TextStyle(color: Colors.white),

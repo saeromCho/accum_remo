@@ -64,8 +64,6 @@ class DBHelper {
     try {
       List<Map<String, Object?>> results = await db.query("User",
           where: "user_id = ? and password = ?", whereArgs: [userId, password]);
-      // 결과가 있다면 첫 번째 사용자 반환, 없다면 null 반환
-      print('results:::${results.length}');
       if (results.isNotEmpty) {
         return results.first;
       } else {
@@ -77,24 +75,66 @@ class DBHelper {
     return null;
   }
 
-  Future<bool> insertMemo(Memo memo) async {
+  Future<void> saveMemo(Memo memo) async {
+    if (memo.id == null) {
+      // 새 메모 (id가 없음)
+      await insertMemo(memo);
+    } else {
+      // 기존 메모 업데이트
+      await updateMemo(memo);
+    }
+  }
+
+  Future<int> insertMemo(Memo memo) async {
     final db = await database;
 
     try {
-      await db.insert(
+      final memoId = await db.insert(
         "Memo",
         memo.toJson(),
       );
-      return true;
+      return memoId;
     } catch (e) {
       print('insertMemo 에러::::${e.toString()}');
     }
-    return false;
+    return -1;
+  }
+
+  Future<void> updateMemo(Memo memo) async {
+    final db = await database;
+    await db.update(
+      'Memo',
+      memo.toJson(),
+      where: 'id = ?',
+      whereArgs: [memo.id],
+    );
+  }
+
+  Future<void> deleteMemo(int memoId) async {
+    final db = await database;
+    await db.delete("Memo", where: "id = ?", whereArgs: [memoId]);
+  }
+
+  Future<Map<String, dynamic>?>? fetchMemo({required int memoId}) async {
+    final db = await database;
+    try {
+      List<Map<String, Object?>> results =
+          await db.query("Memo", where: "id = ?", whereArgs: [memoId]);
+      if (results.isNotEmpty) {
+        return results.first;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('fetch Memo 에러:::${e.toString()}');
+    }
+    return null;
   }
 
   Future<List<Memo>> fetchMemos() async {
     final db = await database;
-    List<Map<String, dynamic>> results = await db.query("Memo");
+    List<Map<String, dynamic>> results =
+        await db.query("Memo", orderBy: "updated_at DESC");
 
     List<Memo> memos = [];
     for (int i = 0; i < results.length; i++) {
