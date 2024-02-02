@@ -27,7 +27,6 @@ class _SplashScreenState extends State<SplashScreen> with AfterLayoutMixin {
       }
     } else {
       if (mounted) {
-        // context.goNamed(RemoPath.memos.name);
         context.goNamed(RemoPath.login.name);
       }
     }

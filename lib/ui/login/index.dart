@@ -34,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Theme.of(context).colorScheme.inverseSurface,
           iconTheme: IconThemeData(color: Colors.white),
           title: const Text(
