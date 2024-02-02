@@ -27,6 +27,7 @@ class MemosScreenState extends State<MemosScreen> {
   }
 
   void loadData() async {
+    /// TODO: 유저 닉네임 보여주게끔 수정하기. 프로바이더 만들어서 관리필요.
     final dbHelper = DBHelper();
     final userId = await storageService.getUserId();
 
