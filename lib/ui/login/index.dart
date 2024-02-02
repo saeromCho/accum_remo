@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_db_sqlite/db/db_helper.dart';
+import 'package:local_db_sqlite/infra/storage_service.dart';
 import 'package:local_db_sqlite/utils/hash_util.dart';
 import 'package:local_db_sqlite/utils/path.dart';
 
@@ -140,7 +141,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       setState(() {
                         isUserExisted = true;
                       });
-                      context.goNamed(RemoPath.memos.name);
+                      await StorageService().setUserId(userId);
+
+                      if (mounted) {
+                        context.goNamed(RemoPath.memos.name);
+                      }
                     } else {
                       /// 없으면 없다는 메세지 밑에 간단하게 보여줘.
                       setState(() {

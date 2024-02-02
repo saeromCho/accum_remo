@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_db_sqlite/db/db_helper.dart';
+import 'package:local_db_sqlite/infra/storage_service.dart';
 import 'package:local_db_sqlite/model/memo.dart';
 import 'package:local_db_sqlite/utils/formatter.dart';
 import 'package:local_db_sqlite/utils/path.dart';
@@ -15,6 +16,7 @@ class MemosScreen extends StatefulWidget {
 
 class MemosScreenState extends State<MemosScreen> {
   List<Memo> memoList = [];
+  final storageService = StorageService();
 
   @override
   void initState() {
@@ -29,6 +31,7 @@ class MemosScreenState extends State<MemosScreen> {
     setState(() {
       memoList = fetchedData;
     });
+    print('체크::${await storageService.getUserId()}');
   }
 
   void _createMemo() {
@@ -52,6 +55,21 @@ class MemosScreenState extends State<MemosScreen> {
             'Memo List in Remo.',
             style: TextStyle(color: Colors.white),
           ),
+          actions: [
+            TextButton(
+                onPressed: () async {
+                  await storageService.clear();
+                  if (mounted) {
+                    context.goNamed(RemoPath.login.name);
+                  }
+                },
+                child: Text(
+                  '로그아웃',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                )),
+          ],
         ),
         body: memoList.isNotEmpty
             ? ListView(children: [

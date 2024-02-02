@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:local_db_sqlite/db/db_helper.dart';
+import 'package:local_db_sqlite/infra/storage_service.dart';
 import 'package:local_db_sqlite/model/memo.dart';
 import 'package:local_db_sqlite/utils/formatter.dart';
+import 'package:local_db_sqlite/utils/path.dart';
 
 class MemoWriteScreen extends StatefulWidget {
   const MemoWriteScreen({super.key});
@@ -13,6 +16,7 @@ class MemoWriteScreen extends StatefulWidget {
 }
 
 class MemoWriteScreenState extends State<MemoWriteScreen> {
+  final storageService = StorageService();
   final memoController = TextEditingController();
   int? _currentMemoId;
   String? _createdAt; // createdAt 값을 저장할 필드
@@ -101,6 +105,19 @@ class MemoWriteScreenState extends State<MemoWriteScreen> {
 
                 /// TODO: 삭제 버튼, 공유 버튼, 전체 복사 버튼
               ),
+              TextButton(
+                  onPressed: () async {
+                    await storageService.clear();
+                    if (mounted) {
+                      context.goNamed(RemoPath.login.name);
+                    }
+                  },
+                  child: Text(
+                    '로그아웃',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  )),
             ],
           ),
         ],
