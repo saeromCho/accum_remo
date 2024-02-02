@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:local_db_sqlite/db/db_helper.dart';
 import 'package:local_db_sqlite/infra/storage_service.dart';
 import 'package:local_db_sqlite/model/memo.dart';
+import 'package:local_db_sqlite/ui/common/logout_text_button.dart';
 import 'package:local_db_sqlite/utils/formatter.dart';
 import 'package:local_db_sqlite/utils/path.dart';
+import 'package:local_db_sqlite/utils/ui_constant.dart';
 
 class MemosScreen extends StatefulWidget {
   const MemosScreen({super.key});
@@ -31,7 +33,6 @@ class MemosScreenState extends State<MemosScreen> {
     setState(() {
       memoList = fetchedData;
     });
-    print('체크::${await storageService.getUserId()}');
   }
 
   void _createMemo() {
@@ -40,8 +41,6 @@ class MemosScreenState extends State<MemosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = Colors.blueGrey.shade900;
-
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
@@ -51,25 +50,13 @@ class MemosScreenState extends State<MemosScreen> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Theme.of(context).colorScheme.inverseSurface,
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           title: const Text(
             'Memo List in Remo.',
             style: TextStyle(color: Colors.white),
           ),
           actions: [
-            TextButton(
-                onPressed: () async {
-                  await storageService.clear();
-                  if (mounted) {
-                    context.goNamed(RemoPath.login.name);
-                  }
-                },
-                child: Text(
-                  '로그아웃',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                )),
+            LogoutTextButton(storageService: storageService, mounted: mounted),
           ],
         ),
         body: memoList != null
@@ -84,147 +71,156 @@ class MemosScreenState extends State<MemosScreen> {
                               children: <Widget>[
                                 Stack(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          textAlign: TextAlign.left,
-                                          '너가 남긴 흔적들이야.',
-                                          style: TextStyle(
-                                              color: primaryColor,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              letterSpacing: 2),
-                                        ),
-                                      ],
-                                    ),
-                                    Positioned(
-                                      top: 0,
-                                      bottom: 0,
-                                      right: 0,
-                                      child: Row(
-                                        children: [
-                                          IconButton(
-                                              padding: EdgeInsets.zero,
-                                              onPressed: loadData,
-                                              icon: Icon(CupertinoIcons
-                                                  .refresh_circled)),
-                                          IconButton(
-                                            padding: EdgeInsets.zero,
-                                            onPressed: _createMemo,
-                                            icon: const Icon(
-                                                CupertinoIcons.text_bubble),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                    _buildTitle(),
+                                    _buildActionButtons(),
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
-                                ListView.separated(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  separatorBuilder: (_, index) {
-                                    return SizedBox(
-                                      height: 2,
-                                    );
-                                  },
-                                  itemCount: memoList!.length,
-                                  itemBuilder: (_, index) {
-                                    final Memo item = memoList![index];
-
-                                    return GestureDetector(
-                                      behavior: HitTestBehavior.translucent,
-                                      onTap: () {
-                                        context.goNamed(RemoPath.memoEdit.name,
-                                            pathParameters: {
-                                              'memoId': item.id.toString(),
-                                            });
-                                      },
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                item.title
-                                                    .split('\n')
-                                                    .firstWhere(
-                                                        (element) =>
-                                                            element.isNotEmpty,
-                                                        orElse: () => '새로운 메모'),
-                                                maxLines: 1,
-                                                softWrap: true,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(Formatter
-                                                      .formatDateTimeFromString(
-                                                          item.updatedAt)),
-                                                  if (item.content != null)
-                                                    Row(
-                                                      children: [
-                                                        SizedBox(
-                                                          width: 4,
-                                                        ),
-                                                        Text(
-                                                          item.content!
-                                                              .split('\n')
-                                                              .firstWhere(
-                                                                  (element) =>
-                                                                      element
-                                                                          .isNotEmpty,
-                                                                  orElse: () =>
-                                                                      '추가 텍스트 없음'),
-                                                        )
-                                                      ],
-                                                    ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          Divider(),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
+                                _buildMemoList(context),
                               ],
                             )),
                       ],
                     ),
                   ])
-                : Center(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '아직 너의 흔적이 없어. 한 번 남겨볼래?',
-                          style: TextStyle(
-                              color: primaryColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 2),
-                        ),
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          onPressed: _createMemo,
-                          icon: const Icon(CupertinoIcons.text_bubble),
-                        ),
-                      ],
-                    ),
-                  )
+                : _buildEmptyMemo(primaryColor)
             : Center(child: CircularProgressIndicator()),
+      ),
+    );
+  }
+
+  ListView _buildMemoList(BuildContext context) {
+    return ListView.separated(
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      separatorBuilder: (_, index) {
+        return const SizedBox(
+          height: 2,
+        );
+      },
+      itemCount: memoList!.length,
+      itemBuilder: (_, index) {
+        final Memo item = memoList![index];
+
+        return GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            context.goNamed(RemoPath.memoEdit.name, pathParameters: {
+              'memoId': item.id.toString(),
+            });
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildMemoTitle(item),
+                  Row(
+                    children: [
+                      _buildMemoUpdatedAt(item),
+                      if (item.content != null) _buildMemoContent(item),
+                    ],
+                  ),
+                ],
+              ),
+              Divider(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Row _buildTitle() {
+    return Row(
+      children: [
+        Text(
+          textAlign: TextAlign.left,
+          '너가 남긴 흔적들이야.',
+          style: TextStyle(
+              color: primaryColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2),
+        ),
+      ],
+    );
+  }
+
+  Positioned _buildActionButtons() {
+    return Positioned(
+      top: 0,
+      bottom: 0,
+      right: 0,
+      child: Row(
+        children: [
+          IconButton(
+              padding: EdgeInsets.zero,
+              onPressed: loadData,
+              icon: Icon(CupertinoIcons.refresh_circled)),
+          IconButton(
+            padding: EdgeInsets.zero,
+            onPressed: _createMemo,
+            icon: const Icon(CupertinoIcons.text_bubble),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Text _buildMemoTitle(Memo item) {
+    return Text(
+      item.title
+          .split('\n')
+          .firstWhere((element) => element.isNotEmpty, orElse: () => '새로운 메모'),
+      maxLines: 1,
+      softWrap: true,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+    );
+  }
+
+  Text _buildMemoUpdatedAt(Memo item) {
+    return Text(Formatter.formatDateTimeFromString(item.updatedAt));
+  }
+
+  Row _buildMemoContent(Memo item) {
+    return Row(
+      children: [
+        const SizedBox(
+          width: 4,
+        ),
+        Text(
+          item.content!.split('\n').firstWhere((element) => element.isNotEmpty,
+              orElse: () => '추가 텍스트 없음'),
+        )
+      ],
+    );
+  }
+
+  Center _buildEmptyMemo(Color primaryColor) {
+    return Center(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '아직 너의 흔적이 없어. 한 번 남겨볼래?',
+            style: TextStyle(
+                color: primaryColor,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 2),
+          ),
+          IconButton(
+            padding: EdgeInsets.zero,
+            onPressed: _createMemo,
+            icon: const Icon(CupertinoIcons.text_bubble),
+          ),
+        ],
       ),
     );
   }

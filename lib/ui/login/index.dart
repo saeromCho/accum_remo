@@ -4,6 +4,7 @@ import 'package:local_db_sqlite/db/db_helper.dart';
 import 'package:local_db_sqlite/infra/storage_service.dart';
 import 'package:local_db_sqlite/utils/hash_util.dart';
 import 'package:local_db_sqlite/utils/path.dart';
+import 'package:local_db_sqlite/utils/ui_constant.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,7 +26,6 @@ class _LoginScreenState extends State<LoginScreen> {
     final TextEditingController idTextController = TextEditingController();
     final TextEditingController passwordTextController =
         TextEditingController();
-    final primaryColor = Colors.blueGrey.shade900;
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,

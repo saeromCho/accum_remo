@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:local_db_sqlite/db/db_helper.dart';
 import 'package:local_db_sqlite/model/user.dart';
+import 'package:local_db_sqlite/ui/common/text_field.dart';
 import 'package:local_db_sqlite/utils/hash_util.dart';
+import 'package:local_db_sqlite/utils/path.dart';
+import 'package:local_db_sqlite/utils/ui_constant.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -16,8 +20,6 @@ class RegisterScreen extends StatelessWidget {
         TextEditingController();
     final TextEditingController shortenIntroducingTextController =
         TextEditingController();
-
-    final primaryColor = Colors.blueGrey.shade900;
 
     return Scaffold(
       appBar: AppBar(
@@ -47,144 +49,173 @@ class RegisterScreen extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: '아이디',
-                    hintText: '아이디를 입력해주세요.',
-                    hintStyle: TextStyle(fontSize: 14),
-                    labelStyle: TextStyle(color: primaryColor),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      borderSide: BorderSide(width: 1, color: primaryColor),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      borderSide: BorderSide(width: 1, color: primaryColor),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    ),
-                  ),
-                  controller: idTextController,
+                CommonTextField(
+                  labelText: '아이디',
+                  hintText: '아이디를 입력해주세요',
+                  textController: idTextController,
                 ),
+                // TextField(
+                //   decoration: InputDecoration(
+                //     labelText: '아이디',
+                //     hintText: '아이디를 입력해주세요.',
+                //     hintStyle: TextStyle(fontSize: 14),
+                //     labelStyle: TextStyle(color: primaryColor),
+                //     focusedBorder: OutlineInputBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                //       borderSide: BorderSide(width: 1, color: primaryColor),
+                //     ),
+                //     enabledBorder: OutlineInputBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                //       borderSide: BorderSide(width: 1, color: primaryColor),
+                //     ),
+                //     border: OutlineInputBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                //     ),
+                //   ),
+                //   controller: idTextController,
+                // ),
                 SizedBox(
                   height: 20,
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: '비밀번호',
-                    hintText: '비밀번호를 입력해주세요.',
-                    hintStyle: TextStyle(fontSize: 14),
-                    labelStyle: TextStyle(color: primaryColor),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      borderSide: BorderSide(width: 1, color: primaryColor),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      borderSide: BorderSide(width: 1, color: primaryColor),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    ),
-                  ),
-                  controller: passwordTextController,
-                  obscureText: true,
+                CommonTextField(
+                  labelText: '비밀번호',
+                  hintText: '비밀번호를 입력해주세요.',
+                  textController: passwordTextController,
+                  isObscureText: true,
                 ),
+                // TextField(
+                //   decoration: InputDecoration(
+                //     labelText: '비밀번호',
+                //     hintText: '비밀번호를 입력해주세요.',
+                //     hintStyle: TextStyle(fontSize: 14),
+                //     labelStyle: TextStyle(color: primaryColor),
+                //     focusedBorder: OutlineInputBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                //       borderSide: BorderSide(width: 1, color: primaryColor),
+                //     ),
+                //     enabledBorder: OutlineInputBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                //       borderSide: BorderSide(width: 1, color: primaryColor),
+                //     ),
+                //     border: OutlineInputBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                //     ),
+                //   ),
+                //   controller: passwordTextController,
+                //   obscureText: true,
+                // ),
                 SizedBox(
                   height: 20,
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: '닉네임',
-                    hintText: '사용할 닉네임을 적어주세요.',
-                    hintStyle: TextStyle(fontSize: 14),
-                    labelStyle: TextStyle(color: primaryColor),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      borderSide: BorderSide(width: 1, color: primaryColor),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      borderSide: BorderSide(width: 1, color: primaryColor),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    ),
-                  ),
-                  controller: nickNameTextController,
+                CommonTextField(
+                  labelText: '닉네임',
+                  hintText: '사용할 닉네임을 적어주세요.',
+                  textController: nickNameTextController,
                 ),
+                // TextField(
+                //   decoration: InputDecoration(
+                //     labelText: '닉네임',
+                //     hintText: '사용할 닉네임을 적어주세요.',
+                //     hintStyle: TextStyle(fontSize: 14),
+                //     labelStyle: TextStyle(color: primaryColor),
+                //     focusedBorder: OutlineInputBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                //       borderSide: BorderSide(width: 1, color: primaryColor),
+                //     ),
+                //     enabledBorder: OutlineInputBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                //       borderSide: BorderSide(width: 1, color: primaryColor),
+                //     ),
+                //     border: OutlineInputBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                //     ),
+                //   ),
+                //   controller: nickNameTextController,
+                // ),
                 SizedBox(
                   height: 20,
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: '나에 대해 말해줄래요?',
-                    hintText: '조심스럽게라도 좋으니, 나에 대해 짤막한 글을 적어주세요.',
-                    hintStyle: TextStyle(fontSize: 14),
-                    labelStyle: TextStyle(color: primaryColor),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      borderSide: BorderSide(width: 1, color: primaryColor),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      borderSide: BorderSide(width: 1, color: primaryColor),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    ),
-                  ),
-                  controller: shortenIntroducingTextController,
+                CommonTextField(
+                  labelText: '나에 대해 말해줄래요?',
+                  hintText: '조심스럽게라도 좋으니, 나에 대해 짤막한 글을 적어주세요.',
+                  textController: shortenIntroducingTextController,
                 ),
+                // TextField(
+                //   decoration: InputDecoration(
+                //     labelText: '나에 대해 말해줄래요?',
+                //     hintText: '조심스럽게라도 좋으니, 나에 대해 짤막한 글을 적어주세요.',
+                //     hintStyle: TextStyle(fontSize: 14),
+                //     labelStyle: TextStyle(color: primaryColor),
+                //     focusedBorder: OutlineInputBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                //       borderSide: BorderSide(width: 1, color: primaryColor),
+                //     ),
+                //     enabledBorder: OutlineInputBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                //       borderSide: BorderSide(width: 1, color: primaryColor),
+                //     ),
+                //     border: OutlineInputBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                //     ),
+                //   ),
+                //   controller: shortenIntroducingTextController,
+                // ),
                 SizedBox(height: 20),
-                ElevatedButton(
-                  child: Text('회원가입'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryColor,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10), // 버튼 모서리 둥글기
-                    ),
-                  ),
-                  onPressed: () async {
-                    final userId = idTextController.value.text;
-                    final password = passwordTextController.value.text;
-                    final nickName = nickNameTextController.value.text;
-                    final shortenIntroducing =
-                        shortenIntroducingTextController.value.text;
-                    final now = DateFormat('yyyy-MM-dd HH:mm:ss')
-                        .format(DateTime.now());
-                    final hashedPassword =
-                        HashUtil.generateSha256Hash(password);
-
-                    final result = await DBHelper().insertUser(User(
-                        id: null,
-                        userId: userId,
-                        password: hashedPassword,
-                        nickName: nickName,
-                        shortenIntroducing: shortenIntroducing,
-                        createdAt: now,
-                        updatedAt: now));
-
-                    if (result) {
-                      print('정상적으로 회원가입이 되었으니 팝업 띄워주고 메모 스크린으로 이동~');
-                      // context.goNamed(RemoPath.memos.name);
-                    } else {
-                      print('에러 났으니까 잠시만~');
-                    }
-                  },
-                ),
+                _buildRegisterButton(
+                    context,
+                    idTextController,
+                    passwordTextController,
+                    nickNameTextController,
+                    shortenIntroducingTextController),
               ],
             ),
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _createMemo,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ),
+    );
+  }
+
+  ElevatedButton _buildRegisterButton(
+      BuildContext context,
+      TextEditingController idTextController,
+      TextEditingController passwordTextController,
+      TextEditingController nickNameTextController,
+      TextEditingController shortenIntroducingTextController) {
+    return ElevatedButton(
+      child: Text('회원가입'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: primaryColor,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10), // 버튼 모서리 둥글기
+        ),
+      ),
+      onPressed: () async {
+        final userId = idTextController.value.text;
+        final password = passwordTextController.value.text;
+        final nickName = nickNameTextController.value.text;
+        final shortenIntroducing = shortenIntroducingTextController.value.text;
+        final now = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+        final hashedPassword = HashUtil.generateSha256Hash(password);
+
+        final result = await DBHelper().insertUser(User(
+            id: null,
+            userId: userId,
+            password: hashedPassword,
+            nickName: nickName,
+            shortenIntroducing: shortenIntroducing,
+            createdAt: now,
+            updatedAt: now));
+
+        if (result) {
+          print('정상적으로 회원가입이 되었으니 팝업 띄워주고 메모 스크린으로 이동~');
+          if (context.mounted) {
+            context.goNamed(RemoPath.login.name);
+          }
+        } else {
+          print('에러 났으니까 잠시만~');
+        }
+      },
     );
   }
 }
