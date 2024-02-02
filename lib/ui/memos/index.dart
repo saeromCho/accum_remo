@@ -27,9 +27,10 @@ class MemosScreenState extends State<MemosScreen> {
   }
 
   void loadData() async {
-    var dbHelper = DBHelper();
+    final dbHelper = DBHelper();
+    final userId = await storageService.getUserId();
 
-    final fetchedData = await dbHelper.fetchMemos();
+    final fetchedData = await dbHelper.fetchUserMemos(int.parse(userId!));
     setState(() {
       memoList = fetchedData;
     });

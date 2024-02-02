@@ -133,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     final userId = idTextController.value.text;
                     final password = passwordTextController.value.text;
 
-                    /// TODO: 비밀번호에 해시함수 적용한 값으로 보내고, 저장.
+                    /// 비밀번호에 해시함수 적용한 값으로 보내고, 저장.
                     final hashedPassword =
                         HashUtil.generateSha256Hash(password);
 
@@ -145,6 +145,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       setState(() {
                         isUserExisted = true;
                       });
+
+                      final userId = users['id'].toString();
                       await StorageService().setUserId(userId);
 
                       if (mounted) {
