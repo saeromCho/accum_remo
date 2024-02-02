@@ -21,17 +21,17 @@ class CommonTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
-        hintStyle: TextStyle(fontSize: 14),
+        hintStyle: const TextStyle(fontSize: 14),
         labelStyle: TextStyle(color: primaryColor),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
           borderSide: BorderSide(width: 1, color: primaryColor),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
           borderSide: BorderSide(width: 1, color: primaryColor),
         ),
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
       ),

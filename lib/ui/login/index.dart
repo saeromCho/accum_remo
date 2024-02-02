@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Theme.of(context).colorScheme.inverseSurface,
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           title: const Text(
             'Remo.',
             style: TextStyle(color: Colors.white),
@@ -57,47 +57,51 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.bold,
                       letterSpacing: 2),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextField(
                   decoration: InputDecoration(
                     labelText: '아이디',
                     hintText: '아이디를 입력해주세요.',
-                    hintStyle: TextStyle(fontSize: 14),
+                    hintStyle: const TextStyle(fontSize: 14),
                     labelStyle: TextStyle(color: primaryColor),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(8.0)),
                       borderSide: BorderSide(width: 1, color: primaryColor),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(8.0)),
                       borderSide: BorderSide(width: 1, color: primaryColor),
                     ),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)),
                     ),
                   ),
                   controller: idTextController,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextField(
                   decoration: InputDecoration(
                     labelText: '비밀번호',
                     hintText: '비밀번호를 입력해주세요.',
-                    hintStyle: TextStyle(fontSize: 14),
+                    hintStyle: const TextStyle(fontSize: 14),
                     labelStyle: TextStyle(color: primaryColor),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(8.0)),
                       borderSide: BorderSide(width: 1, color: primaryColor),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(8.0)),
                       borderSide: BorderSide(width: 1, color: primaryColor),
                     ),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8.0)),
                     ),
                   ),
@@ -105,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: true,
                 ),
                 if (!isUserExisted)
-                  Column(
+                  const Column(
                     children: [
                       SizedBox(
                         height: 10,
@@ -116,9 +120,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
-                  child: Text('로그인'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
                     foregroundColor: Colors.white,
@@ -154,9 +157,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                     }
                   },
+                  child: const Text('로그인'),
                 ),
                 ElevatedButton(
-                  child: Text('회원가입'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
                     foregroundColor: Colors.white,
@@ -168,6 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     /// TODO: 회원가입 스크린으로 이동
                     context.goNamed(RemoPath.register.name);
                   },
+                  child: const Text('회원가입'),
                 ),
               ],
             ),

@@ -85,7 +85,7 @@ class MemosScreenState extends State<MemosScreen> {
                     ),
                   ])
                 : _buildEmptyMemo(primaryColor)
-            : Center(child: CircularProgressIndicator()),
+            : const Center(child: CircularProgressIndicator()),
       ),
     );
   }
@@ -126,7 +126,7 @@ class MemosScreenState extends State<MemosScreen> {
                   ),
                 ],
               ),
-              Divider(),
+              const Divider(),
             ],
           ),
         );
@@ -160,7 +160,7 @@ class MemosScreenState extends State<MemosScreen> {
           IconButton(
               padding: EdgeInsets.zero,
               onPressed: loadData,
-              icon: Icon(CupertinoIcons.refresh_circled)),
+              icon: const Icon(CupertinoIcons.refresh_circled)),
           IconButton(
             padding: EdgeInsets.zero,
             onPressed: _createMemo,
@@ -179,7 +179,7 @@ class MemosScreenState extends State<MemosScreen> {
       maxLines: 1,
       softWrap: true,
       overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
     );
   }
 

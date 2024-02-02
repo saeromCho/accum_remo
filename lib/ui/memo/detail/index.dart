@@ -40,7 +40,7 @@ class _MemoDetailScreenState extends State<MemoDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inverseSurface,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
           memo != null ? memo!.title : '',
           style: const TextStyle(color: Colors.white),
@@ -53,21 +53,21 @@ class _MemoDetailScreenState extends State<MemoDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Align(
-                    child: Text(memo!.updatedAt),
                     alignment: Alignment.center,
+                    child: Text(memo!.updatedAt),
                   ),
                   Text(
                     textAlign: TextAlign.left,
                     memo!.title,
-                    style: TextStyle(fontSize: 16, letterSpacing: 2),
+                    style: const TextStyle(fontSize: 16, letterSpacing: 2),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   Text(
                     textAlign: TextAlign.left,
                     memo!.content != null ? memo!.content! : '',
-                    style: TextStyle(
+                    style: const TextStyle(
                         // color: primaryColor,
                         fontSize: 16,
                         letterSpacing: 2),
@@ -75,7 +75,7 @@ class _MemoDetailScreenState extends State<MemoDetailScreen> {
                 ],
               ),
             )
-          : CircularProgressIndicator(),
+          : const CircularProgressIndicator(),
     );
   }
 }

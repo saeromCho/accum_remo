@@ -110,7 +110,7 @@ class _MemoEditScreenState extends State<MemoEditScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inverseSurface,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
           memoState != null
               ? memoState!.title.split('\n').firstWhere(
@@ -124,7 +124,7 @@ class _MemoEditScreenState extends State<MemoEditScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CompleteMemoTextButton(),
+              const CompleteMemoTextButton(),
               if (_currentMemoId != null) _buildDeleteMemoButton(),
               LogoutTextButton(
                   storageService: storageService, mounted: mounted),
@@ -137,7 +137,7 @@ class _MemoEditScreenState extends State<MemoEditScreen> {
           padding: const EdgeInsets.all(20.0),
           child: memoState != null
               ? _buildEditMemoSection(formattedDate, primaryColor)
-              : CircularProgressIndicator(),
+              : const CircularProgressIndicator(),
         ),
       ),
     );
@@ -176,7 +176,7 @@ class _MemoEditScreenState extends State<MemoEditScreen> {
         onPressed: () {
           _deleteMemo(_currentMemoId!, true);
         },
-        icon: Icon(
+        icon: const Icon(
           CupertinoIcons.delete_simple,
           color: Colors.white,
         ));

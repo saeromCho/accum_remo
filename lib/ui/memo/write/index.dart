@@ -77,7 +77,7 @@ class MemoWriteScreenState extends State<MemoWriteScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inverseSurface,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
           'Your Memo in Remo.',
           style: TextStyle(color: Colors.white),
@@ -86,7 +86,7 @@ class MemoWriteScreenState extends State<MemoWriteScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CompleteMemoTextButton(),
+              const CompleteMemoTextButton(),
               LogoutTextButton(
                   storageService: storageService, mounted: mounted),
             ],

@@ -24,7 +24,7 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inverseSurface,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
           'Register in Remo.',
           style: TextStyle(color: Colors.white),
@@ -46,7 +46,7 @@ class RegisterScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       letterSpacing: 2),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 CommonTextField(
@@ -54,27 +54,7 @@ class RegisterScreen extends StatelessWidget {
                   hintText: '아이디를 입력해주세요',
                   textController: idTextController,
                 ),
-                // TextField(
-                //   decoration: InputDecoration(
-                //     labelText: '아이디',
-                //     hintText: '아이디를 입력해주세요.',
-                //     hintStyle: TextStyle(fontSize: 14),
-                //     labelStyle: TextStyle(color: primaryColor),
-                //     focusedBorder: OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                //       borderSide: BorderSide(width: 1, color: primaryColor),
-                //     ),
-                //     enabledBorder: OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                //       borderSide: BorderSide(width: 1, color: primaryColor),
-                //     ),
-                //     border: OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                //     ),
-                //   ),
-                //   controller: idTextController,
-                // ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 CommonTextField(
@@ -83,28 +63,7 @@ class RegisterScreen extends StatelessWidget {
                   textController: passwordTextController,
                   isObscureText: true,
                 ),
-                // TextField(
-                //   decoration: InputDecoration(
-                //     labelText: '비밀번호',
-                //     hintText: '비밀번호를 입력해주세요.',
-                //     hintStyle: TextStyle(fontSize: 14),
-                //     labelStyle: TextStyle(color: primaryColor),
-                //     focusedBorder: OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                //       borderSide: BorderSide(width: 1, color: primaryColor),
-                //     ),
-                //     enabledBorder: OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                //       borderSide: BorderSide(width: 1, color: primaryColor),
-                //     ),
-                //     border: OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                //     ),
-                //   ),
-                //   controller: passwordTextController,
-                //   obscureText: true,
-                // ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 CommonTextField(
@@ -112,27 +71,7 @@ class RegisterScreen extends StatelessWidget {
                   hintText: '사용할 닉네임을 적어주세요.',
                   textController: nickNameTextController,
                 ),
-                // TextField(
-                //   decoration: InputDecoration(
-                //     labelText: '닉네임',
-                //     hintText: '사용할 닉네임을 적어주세요.',
-                //     hintStyle: TextStyle(fontSize: 14),
-                //     labelStyle: TextStyle(color: primaryColor),
-                //     focusedBorder: OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                //       borderSide: BorderSide(width: 1, color: primaryColor),
-                //     ),
-                //     enabledBorder: OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                //       borderSide: BorderSide(width: 1, color: primaryColor),
-                //     ),
-                //     border: OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                //     ),
-                //   ),
-                //   controller: nickNameTextController,
-                // ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 CommonTextField(
@@ -140,27 +79,7 @@ class RegisterScreen extends StatelessWidget {
                   hintText: '조심스럽게라도 좋으니, 나에 대해 짤막한 글을 적어주세요.',
                   textController: shortenIntroducingTextController,
                 ),
-                // TextField(
-                //   decoration: InputDecoration(
-                //     labelText: '나에 대해 말해줄래요?',
-                //     hintText: '조심스럽게라도 좋으니, 나에 대해 짤막한 글을 적어주세요.',
-                //     hintStyle: TextStyle(fontSize: 14),
-                //     labelStyle: TextStyle(color: primaryColor),
-                //     focusedBorder: OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                //       borderSide: BorderSide(width: 1, color: primaryColor),
-                //     ),
-                //     enabledBorder: OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                //       borderSide: BorderSide(width: 1, color: primaryColor),
-                //     ),
-                //     border: OutlineInputBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                //     ),
-                //   ),
-                //   controller: shortenIntroducingTextController,
-                // ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 _buildRegisterButton(
                     context,
                     idTextController,
@@ -182,12 +101,11 @@ class RegisterScreen extends StatelessWidget {
       TextEditingController nickNameTextController,
       TextEditingController shortenIntroducingTextController) {
     return ElevatedButton(
-      child: Text('회원가입'),
       style: ElevatedButton.styleFrom(
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10), // 버튼 모서리 둥글기
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
       onPressed: () async {
@@ -216,6 +134,7 @@ class RegisterScreen extends StatelessWidget {
           print('에러 났으니까 잠시만~');
         }
       },
+      child: const Text('회원가입'),
     );
   }
 }
