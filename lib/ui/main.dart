@@ -7,6 +7,7 @@ import 'package:local_db_sqlite/ui/memo/write/index.dart';
 import 'package:local_db_sqlite/ui/memos/index.dart';
 import 'package:local_db_sqlite/ui/register/index.dart';
 import 'package:local_db_sqlite/ui/splash/index.dart';
+import 'package:local_db_sqlite/ui/webview/webview_screen.dart';
 import 'package:local_db_sqlite/utils/path.dart';
 
 void main() {
@@ -41,6 +42,11 @@ class MyApp extends StatelessWidget {
                 name: RemoPath.memos.name,
                 builder: (_, state) => const MemosScreen(),
                 routes: [
+                  GoRoute(
+                    path: RemoPath.webview.path,
+                    name: RemoPath.webview.name,
+                    builder: (_, state) => const WebViewScreen(),
+                  ),
                   GoRoute(
                     path: RemoPath.memoWrite.path,
                     name: RemoPath.memoWrite.name,

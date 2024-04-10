@@ -60,6 +60,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 20,
                 ),
+                TextButton(
+                  onPressed: () {
+                    context.pushNamed(
+                      RemoPath.webview.name,
+                    );
+                  },
+                  child: Text('웹뷰이동'),
+                ),
                 TextField(
                   decoration: InputDecoration(
                     labelText: '아이디',
